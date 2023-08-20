@@ -1,0 +1,39 @@
+/** @format */
+
+ul {
+	margin: 0;
+}
+
+li {
+	list-style: none;
+	padding: 4px;
+	font-size: 22px;
+	font-weight: 400;
+}
+li:nth-child(1) {
+	color: green;
+}
+
+li:nth-child(2) {
+	color: gray;
+}
+
+li:nth-child(3) {
+	color: red;
+}
+
+li:nth-child(4) {
+	color: blue;
+	font-weight: 500;
+}
+
+li:nth-child(5) {
+	font-weight: 600;
+	padding-top: 10px;
+}
+
+h4 {
+	font-size: 22px;
+	font-weight: 500;
+	padding: 0 40px;
+}
