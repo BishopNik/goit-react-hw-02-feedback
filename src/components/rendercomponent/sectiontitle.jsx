@@ -10,10 +10,6 @@ class SectionRendering extends Component {
 		children: PropTypes.node.isRequired,
 	};
 
-	handelClickButton = e => {
-		this.changeClickOnButton(e);
-	};
-
 	render() {
 		const { title, children } = this.props;
 		return (
