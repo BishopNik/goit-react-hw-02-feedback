@@ -3,8 +3,8 @@
 import { Component } from 'react';
 import Statictics from './statistics';
 import FeedbackOptions from './feedbackoptions';
-import SectionRendering from './rendercomponent/sectiontitle';
-import Notification from './rendercomponent/notification';
+import SectionTitle from './sectiontitle';
+import Notification from './notification';
 
 class App extends Component {
 	state = {
@@ -17,6 +17,15 @@ class App extends Component {
 	SECTIONFIRST = 'Please leave feedback';
 	SECTIONSECOND = 'Statistics';
 
+	countTotalFeedback = () => {
+		const { good, neutral, bad } = this.state;
+		return good + neutral + bad;
+	};
+
+	countPositiveFeedbackPercentage = () => {
+		return Math.round((this.state.good * 100) / this.countTotalFeedback());
+	};
+
 	handlerChangeFeedback = newFeed => {
 		this.setState(prevState => ({
 			[newFeed]: prevState[newFeed] + 1,
@@ -24,24 +33,25 @@ class App extends Component {
 	};
 
 	render() {
-		const { good, neutral, bad } = this.state;
-		const sumFeedback = good + neutral + bad;
-
 		return (
 			<>
-				<SectionRendering title={this.SECTIONFIRST}>
+				<SectionTitle title={this.SECTIONFIRST}>
 					<FeedbackOptions
 						valueButtons={this.buttons}
 						onLeaveFeedback={this.handlerChangeFeedback}
 					/>
-				</SectionRendering>
-				<SectionRendering title={this.SECTIONSECOND}>
-					{sumFeedback ? (
-						<Statictics goodValue={good} neutralValue={neutral} badValue={bad} />
+				</SectionTitle>
+				<SectionTitle title={this.SECTIONSECOND}>
+					{this.countTotalFeedback() ? (
+						<Statictics
+							totalFeedback={this.countTotalFeedback()}
+							feedback={this.state}
+							positiveFeedback={this.countPositiveFeedbackPercentage()}
+						/>
 					) : (
 						<Notification />
 					)}
-				</SectionRendering>
+				</SectionTitle>
 			</>
 		);
 	}
